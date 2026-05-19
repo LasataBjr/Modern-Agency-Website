@@ -51,7 +51,7 @@ body{
     }
 }
 
-/* NAV BAR */
+/* ══  NAV BAR ══  */
 #nav{
     position:fixed;
     top:0;
@@ -297,7 +297,51 @@ nav.scrolled{
     display:block;
 }
 
-/* HERO */
+section{
+    position:relative;
+    z-index:1;
+    padding:7rem 5%;
+}
+
+.stag{
+    font-family:var(--fm);
+    font-size:0.68rem;
+    color:var(--cyan);
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:1rem;
+}
+
+.stag::before{
+    content:'> ';
+    opacity:0.4;
+}
+
+.sh{
+    font-family:var(--fh);
+    font-size:clamp(1.8rem,3.5vw,3rem);
+    font-weight:700;
+    line-height:1.1;
+    letter-spacing:0.04em;
+    margin-bottom:1rem;
+}
+
+.sh .hl{
+    background:linear-gradient(90deg,var(--cyan),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.ss{
+    color:var(--muted);
+    font-size:0.95rem;
+    max-width:480px;
+    line-height:1.8;
+}
+
+/* ══ HERO SECTION ══  */
 #hero{
     min-height:100vh;
     display:flex;
@@ -475,6 +519,7 @@ nav.scrolled{
   }
 }
 
+/*  ══ COUNTER ══  */
 .hero-stats{
     display:flex;
     gap:0;
@@ -532,6 +577,100 @@ nav.scrolled{
     letter-spacing:0.12em;
     text-transform:uppercase;
 }
+
+
+/* ══ 3D FLIP SERVICES ══ */
+#services { 
+    background: var(--bg2);
+}
+
+.flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; 
+}
+
+/* 1. THE 3D VIEWPORT PARENT */
+.flip-wrap { 
+    perspective: 1000px; 
+    height: 240px; 
+    cursor: pointer;
+}
+
+/* 2. THE ROTATING 3D CORE ENGINE */
+.flip-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flip-wrap:hover .flip-card { 
+    transform: rotateY(180deg); 
+}
+
+/* 3. THE LAYER BACKFACE HIDER */
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden; 
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 2rem; overflow: hidden;
+  box-sizing: border-box; /* Crucial to prevent height overflowing padding */
+}
+
+/* Front Side Layout Alignment */
+.flip-front { 
+  background: var(--bg2); 
+  justify-content: flex-end; /* Pushes content down on the front */
+}
+
+/* Back Side Layout Alignment (Pre-Rotated) */
+.flip-back {
+  background: linear-gradient(135deg, #050d18, #0a0520);
+  transform: rotateY(180deg); /* 4. PRE-ROTATION CHASSIS */
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+  border-color: var(--border2);
+}
+.flip-back::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,240,255,0.06) 0%, transparent 70%); z-index: -1; }
+
+/* Glitch flicker on flip */
+.flip-wrap:hover .flip-front {
+    animation: glitchFlick 0.15s steps(2) 0.05s;
+}
+
+@keyframes glitchFlick { 
+    0% { 
+        transform: translateX(-2px); 
+    }
+    50% { 
+        transform: translateX(2px); 
+    }
+    100% {
+        transform: none; 
+    }
+}
+
+/* Scan line on front */
+.flip-front::after { content: ''; position: absolute; top: -100%; left: 0; right: 0; height: 40%; background: linear-gradient(transparent, rgba(0,240,255,0.04), transparent); animation: scanFront 4s ease-in-out infinite; pointer-events: none; }
+@keyframes scanFront { 0% { top: -40%; } 100% { top: 140%; } }
+
+/* Typography & Accent Elements */
+.f-num { position: absolute; top: 1.2rem; right: 1.2rem; font-family: var(--fm); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.1em; }
+.f-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.f-title { font-family: var(--fh); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.4rem; }
+.f-corner { position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-top: 1px solid var(--cyan); border-left: 1px solid var(--cyan); }
+.f-corner2 { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; border-bottom: 1px solid var(--cyan); border-right: 1px solid var(--cyan); }
+
+.b-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.b-title { font-family: var(--fh); font-size: 0.85rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.05em; margin-bottom: 0.5rem; text-shadow: var(--gc); }
+.b-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin: 0; }
+.b-tag { font-family: var(--fm); font-size: 0.62rem; color: var(--purple); border: 1px solid rgba(168,85,247,0.3); padding: 0.2rem 0.6rem; margin-top: 1rem; display: inline-block; letter-spacing: 0.08em; }
 
 
 
