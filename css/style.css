@@ -488,37 +488,11 @@ section{
     display:inline-block;
     transition:all 0.3s
 }
+
 .btn-out:hover{
     border-color:var(--purple);
     color:var(--purple)
 }
-
-#htyped {
-  position: relative;
-  display: inline-block;
-}
-
-#htyped::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  margin-left: 6px;
-  transform: translateY(-50%);  
-  width: 5px;
-  height: 0.9em;
-  background:linear-gradient(90deg,var(--cyan) 0%,var(--purple) 55%,var(--cyan) 100%);
-  box-shadow:
-    0 0 8px var(--cyan),
-    0 0 16px rgba(0,240,255,0.6);
-  animation: cyberCursor 0.9s steps(1) infinite;
-}
-
-@keyframes cyberCursor {
-  50% {
-    opacity: 0;
-  }
-}
-
 /*  ══ COUNTER ══  */
 .hero-stats{
     display:flex;
@@ -637,7 +611,14 @@ section{
   text-align: center;
   border-color: var(--border2);
 }
-.flip-back::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,240,255,0.06) 0%, transparent 70%); z-index: -1; }
+
+.flip-back::before { 
+    content: ''; 
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,240,255,0.06) 0%, transparent 70%);
+    z-index: -1; 
+}
 
 /* Glitch flicker on flip */
 .flip-wrap:hover .flip-front {
@@ -657,11 +638,32 @@ section{
 }
 
 /* Scan line on front */
-.flip-front::after { content: ''; position: absolute; top: -100%; left: 0; right: 0; height: 40%; background: linear-gradient(transparent, rgba(0,240,255,0.04), transparent); animation: scanFront 4s ease-in-out infinite; pointer-events: none; }
-@keyframes scanFront { 0% { top: -40%; } 100% { top: 140%; } }
+.flip-front::after { 
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0,240,255,0.04), transparent);
+    animation: scanFront 4s ease-in-out infinite;
+    pointer-events: none; 
+}
+
+@keyframes scanFront {
+     0% {
+         top: -40%; 
+        } 
+    100% {
+         top: 140%;
+        } 
+}
 
 /* Typography & Accent Elements */
-.f-num { position: absolute; top: 1.2rem; right: 1.2rem; font-family: var(--fm); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.1em; }
+.f-num { 
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem; font-family: var(--fm); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.1em; }
 .f-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 .f-title { font-family: var(--fh); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.4rem; }
 .f-corner { position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-top: 1px solid var(--cyan); border-left: 1px solid var(--cyan); }
@@ -671,6 +673,101 @@ section{
 .b-title { font-family: var(--fh); font-size: 0.85rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.05em; margin-bottom: 0.5rem; text-shadow: var(--gc); }
 .b-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin: 0; }
 .b-tag { font-family: var(--fm); font-size: 0.62rem; color: var(--purple); border: 1px solid rgba(168,85,247,0.3); padding: 0.2rem 0.6rem; margin-top: 1rem; display: inline-block; letter-spacing: 0.08em; }
+
+/* ══ ABOUT ══ */
+.about-content p{
+    color:var(--muted);
+    font-size:0.92rem;
+    line-height:1.9;
+    margin-bottom:1rem;
+}
+
+.about-tags{
+    display:flex;
+    gap:0.5rem;
+    flex-wrap:wrap;
+    margin-top:2rem
+}
+
+.atag{
+    font-family:var(--fm);
+    font-size:0.67rem;
+    color:var(--cyan);
+    border:1px solid rgba(0,240,255,0.2);
+    padding:0.3rem 0.8rem;
+    letter-spacing:0.06em;
+    transition:all 0.3s;
+    clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px)
+}
+
+.atag:hover{
+    background:rgba(0,240,255,0.08);
+    border-color:var(--cyan)
+}
+
+/* ══ PROCESS ══ */
+#process{
+    background:var(--bg2);
+}
+
+.proc-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:2rem;
+    margin-top:4rem;
+}
+
+.proc{
+    position:relative;
+    padding:2rem 1.5rem;
+    border:1px solid var(--border);
+    overflow:hidden;
+    transition:border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.proc::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:2px;
+    height:0;
+    background:linear-gradient(to bottom,var(--cyan),var(--purple));
+    transition:height 0.5s;
+}
+
+.proc:hover{
+    border-color:rgba(0,240,255,0.3)
+}
+
+.proc:hover::before{
+    height:100%;
+}
+
+.proc-n{
+    font-family:var(--fh);
+    font-size:3rem;
+    font-weight:900;
+    color:var(--cyan);
+    opacity:0.1;
+    line-height:1;
+    margin-bottom:0.5rem;
+}
+
+.proc-t{
+    font-family:var(--fh);
+    font-size:0.9rem;
+    font-weight:700;
+    margin-bottom:0.6rem;
+    letter-spacing:0.05em
+}
+
+.proc-d{
+    font-size:0.83rem;
+    color:var(--muted);
+    line-height:1.7
+}
 
 
 

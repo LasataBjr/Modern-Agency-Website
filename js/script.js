@@ -4,6 +4,36 @@ window.addEventListener('scroll',()=>
     navEl.classList.toggle('scrolled',scrollY>40)
 );
 
+/* ── scrollspy navigation/ NAV ACTIVE HIGHLIGHT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = ['hero', 'services', 'about', 'process', 'projects', 'testimonials', 'contact'];
+  const navLinks = document.querySelectorAll('.nav-pill a');
+  
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {        
+        navLinks.forEach(a => 
+            a.classList.remove('active') // Clear old highlights safely    
+       
+        );    
+        const activeLink = document.querySelector(
+            `.nav-pill a[href="#${entry.target.id}"]` // Find and highlight the matching navbar item
+        );  
+        if (activeLink)
+            activeLink.classList.add('active');
+      }
+    });
+  }, { 
+    threshold: 0.4, //trigger the change when 40% of a section enters the viewport avoiding flickering
+    rootMargin: "-10% 0px -40% 0px" // Tip: If sections are massive, add a rootMargin to catch long pages earlier!
+  });
+
+   sections.forEach(id => {   // Start watching every valid HTML section on layout
+    const el = document.getElementById(id);
+    if (el) secObs.observe(el);
+  });
+});
+
 /* ──  Typewriter Animation Effect for Hero section ── */
 const words = [
   'DIGITAL FUTURE',
@@ -22,7 +52,7 @@ function type() {
   const w = words[wi];
 
   if (!del) {
-    tyEl.textContent = w.slice(0, ci + 1);
+    tyEl.textContent = w.slice(0, ci + 1) +'|';
     ci++;
 
     if (ci === w.length) {
@@ -31,7 +61,7 @@ function type() {
       return;
     }
   } else {
-    tyEl.textContent = w.slice(0, ci - 1);
+    tyEl.textContent = w.slice(0, ci - 1) +'|';
     ci--;
 
     if (ci === 0) {
@@ -85,5 +115,6 @@ const cobs = new IntersectionObserver(es=>{
             animC(e.target,+e.target.dataset.t);
             cobs.unobserve(e.target)
         }})},{threshold:.5});
-        
+
 document.querySelectorAll('.ctr').forEach(c=>cobs.observe(c));
+
