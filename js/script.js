@@ -58,3 +58,32 @@ setInterval(()=>{
     si=(si+1)%msgs.length;
     se.textContent=msgs[si]
 },3500);
+
+/* ── COUNTERS (event-driven programming)── */
+function animC(el, t, d = 1800) {
+  let start = null;
+
+  function step(ts) {
+    if (!start) start = ts;
+
+    const progress = Math.min((ts - start) / d, 1);
+
+    el.textContent = Math.floor(progress * t);
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = t;
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+const cobs = new IntersectionObserver(es=>{
+    es.forEach(e=>{
+        if(e.isIntersecting){
+            animC(e.target,+e.target.dataset.t);
+            cobs.unobserve(e.target)
+        }})},{threshold:.5});
+        
+document.querySelectorAll('.ctr').forEach(c=>cobs.observe(c));
