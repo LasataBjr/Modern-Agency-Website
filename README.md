@@ -88,10 +88,6 @@ modern-agency-website/
 │   ├── script.js
 │   └── jquery.js
 │
-├── figma/
-│   ├── wireframe-preview.png
-│   └── final-ui-preview.png
-│
 └── screenshots/
     ├── desktop-preview.png
     ├── mobile-preview.png
