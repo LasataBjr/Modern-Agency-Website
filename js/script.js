@@ -34,6 +34,48 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ── CURSOR TRAIL ── */
+let mouseX=0,
+    mouseY=0,
+    trail=[];
+
+    document.addEventListener('mousemove',e=>{
+      mouseX=e.clientX;
+      mouseY=e.clientY
+    });
+
+  // Immediately Invoked Function Expression (IIFE)  define function + run immediately
+  (function trailFr()
+  {
+    // Adds latest mouse coordinates into array.
+    trail.push({
+      x:mouseX,
+      y:mouseY,
+      a:1
+    });
+    if(trail.length>12)
+      trail.shift();
+
+    trail.forEach((p,i)=>{
+        const dot=document.createElement('div');
+        dot.style.cssText=`position:fixed;
+        left:${p.x}px;
+        top:${p.y}px;
+        width:${3-(i*.2)}px;
+        height:${3-(i*.2)}px;
+        border-radius:50%;
+        background:rgba(0,240,255,${i/trail.length*.4});
+        pointer-events:none;
+        z-index:9997;
+        transform:translate(-50%,-50%)`;
+        document.body.appendChild(dot);
+          setTimeout(()=>
+            dot.remove(),50
+        );
+    });
+    requestAnimationFrame(trailFr);
+  })();
+
 /* ──  Typewriter Animation Effect for Hero section ── */
 const words = [
   'DIGITAL FUTURE',
@@ -118,3 +160,15 @@ const cobs = new IntersectionObserver(es=>{
 
 document.querySelectorAll('.ctr').forEach(c=>cobs.observe(c));
 
+/* ── FAQ ── */
+document.querySelectorAll('.faq-q').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const it=b.parentElement, //.faq-item
+    op=it.classList.contains('open'); //return true =open, false = closed
+    // only one question can be expanded at a time
+    document.querySelectorAll('.faq-item').forEach(i=>
+      i.classList.remove('open'));
+      if(!op)
+        it.classList.add('open')
+  })
+});
