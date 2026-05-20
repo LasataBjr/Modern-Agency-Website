@@ -760,16 +760,83 @@ section{
     font-size:0.9rem;
     font-weight:700;
     margin-bottom:0.6rem;
-    letter-spacing:0.05em
+    letter-spacing:0.05em;
 }
 
 .proc-d{
     font-size:0.83rem;
     color:var(--muted);
-    line-height:1.7
+    line-height:1.7;
 }
 
+/* ══ CONTACT ══ */
+#contact{
+    text-align:center;
+    padding:8rem 5%;
+    position:relative;
+    overflow:hidden;
+}
 
+.cring{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    border:1px solid rgba(0,240,255,0.05);
+    pointer-events:none;
+    animation:ringPulse 4s ease-in-out infinite;
+}
+
+.cring1{
+    width:400px;
+    height:400px;
+}
+
+.cring2{
+    width:600px;
+    height:600px;
+    animation-delay:-2s;
+    border-color:rgba(168,85,247,0.04)
+}
+
+@keyframes ringPulse{
+    0%,
+    100%{
+        opacity:0.5;
+        transform:translate(-50%,-50%) scale(1);
+    }
+    50%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.04);
+    }
+}
+
+#contact .sh{
+    font-size:clamp(2.2rem,5vw,4rem);
+    margin-bottom:0.5rem;
+}
+
+#contact .ss{
+    margin:1rem auto 2.5rem;
+    text-align:center;
+    max-width:440px;
+}
+
+.cemail{
+    display:inline-block;
+    font-family:var(--fh);
+    font-size:1.3rem;
+    font-weight:700;
+    background:linear-gradient(90deg,var(--cyan),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    text-decoration:none;
+    margin-bottom:2.5rem;
+    border-bottom:1px solid rgba(0,240,255,0.3);
+    padding-bottom:4px;
+}
 
 /* footer */
 footer{

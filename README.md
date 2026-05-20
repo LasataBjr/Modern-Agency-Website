@@ -72,21 +72,19 @@ modern-agency-website/
 │
 ├── index.html
 ├── README.md
-├── LICENSE
 │
 ├── assets/
 │   ├── images/
 │   ├── icons/
-│   └── fonts/
+│   
 │
 ├── css/
 │   ├── style.css
-│   ├── responsive.css
-│   └── animations.css
+│   
 │
 ├── js/
 │   ├── script.js
-│   └── jquery.js
+│   
 │
 └── screenshots/
     ├── desktop-preview.png
