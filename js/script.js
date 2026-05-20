@@ -160,14 +160,117 @@ const cobs = new IntersectionObserver(es=>{
 
 document.querySelectorAll('.ctr').forEach(c=>cobs.observe(c));
 
+/* ── TESTIMONIAL SLIDER ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const sliderContainer = document.querySelector('.tslider'); // The window wrapper
+  const track = document.getElementById('ttrack');
+  const btnNext = document.getElementById('snext');
+  const btnPrev = document.getElementById('sprev');
+  
+  let currentIndex = 0;
+  let autoScrollTimer = null;
+
+  // 1. Dynamic Width Calculator Matrix
+  function getSlideShift() {
+    if (!track || track.children.length === 0) return 0;
+    const cardWidth = track.children[0].getBoundingClientRect().width;
+    const gapWidth = 24; // 1.5rem gap match
+    return cardWidth + gapWidth;
+  }
+
+  function updateSliderPosition() {
+    const shiftAmount = getSlideShift();
+    track.style.transform = `translateX(-${currentIndex * shiftAmount}px)`;
+  }
+
+  function getMaxIndex() {
+    const totalCards = track.children.length;
+    if (totalCards === 0) return 0;
+    const visibleCards = Math.round(track.parentElement.getBoundingClientRect().width / getSlideShift());
+    const maxIdx = totalCards - visibleCards;
+    return maxIdx > 0 ? maxIdx : 0;
+  }
+
+  function slideNext() {
+    const maxIndex = getMaxIndex();
+    if (currentIndex >= maxIndex) {
+      currentIndex = 0; // Cycles loop straight back to the start index
+    } else {
+      currentIndex++;
+    }
+    updateSliderPosition();
+  }
+
+  function slidePrev() {
+    if (currentIndex <= 0) {
+      currentIndex = getMaxIndex();
+    } else {
+      currentIndex--;
+    }
+    updateSliderPosition();
+  }
+
+  // 2. High-Performance Timer System
+  function startAutoScroll() {
+    stopAutoScroll(); 
+    autoScrollTimer = setInterval(slideNext, 4000); // 4-second intervals
+  }
+
+  function stopAutoScroll() {
+    if (autoScrollTimer) clearInterval(autoScrollTimer);
+  }
+
+  // 3. Arrow Interaction Controls
+  btnNext.addEventListener('click', () => {
+    stopAutoScroll();
+    slideNext();
+    startAutoScroll();
+  });
+
+  btnPrev.addEventListener('click', () => {
+    stopAutoScroll();
+    slidePrev();
+    startAutoScroll();
+  });
+
+  // 4. THE INTERACTIVE HOVER TRACKING PAUSE ENGINE
+  if (sliderContainer) {
+    // Halts the scroll logic instantly when mouse cursor enters the tracking space
+    sliderContainer.addEventListener('mouseenter', () => {
+      stopAutoScroll();
+    });
+
+    // Re-initializes clean automated countdown ticker loops when mouse moves out
+    sliderContainer.addEventListener('mouseleave', () => {
+      startAutoScroll();
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    const maxIndex = getMaxIndex();
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+    updateSliderPosition();
+  });
+
+  // Initialize System loops on page completion
+  startAutoScroll();
+});
+
+
+
 /* ── FAQ ── */
 document.querySelectorAll('.faq-q').forEach(b=>{
+
   b.addEventListener('click',()=>{
+
     const it=b.parentElement, //.faq-item
     op=it.classList.contains('open'); //return true =open, false = closed
+    
     // only one question can be expanded at a time
     document.querySelectorAll('.faq-item').forEach(i=>
       i.classList.remove('open'));
+
+      // Open clicked one if previously closed
       if(!op)
         it.classList.add('open')
   })
