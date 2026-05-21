@@ -34,6 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ── HAMBURGER ── */
+const ham = document.getElementById('ham'), mob = document.getElementById('mob'), ov = document.getElementById('ov');
+const tog = o =>{
+  ham.classList.toggle('open',o); // Toggles the 'open' class on the hamburger icon based on the state of the mobile menu (o)
+  mob.classList.toggle('open',o); 
+  ov.classList.toggle('on',o);
+  document.body.style.overflow = o ? 'hidden':''; // When the mobile menu is open, this prevents the background content from scrolling, enhancing user experience by keeping focus on the menu. When closed, it restores normal scrolling behavior.
+};
+
+ham.addEventListener('click',()=>
+  tog(!mob.classList.contains('open')) // Toggles the mobile menu open/close state based on current visibility
+);
+
+ov.addEventListener('click',()=>tog(false)); // Clicking the overlay will close the mobile menu, providing an intuitive way for users to exit the menu without needing to click the hamburger icon again.
+
+mob.querySelectorAll('a').forEach(a=>
+  a.addEventListener('click',()=>
+    tog(false)
+)); // When a navigation link inside the mobile menu is clicked, this also closes the menu, allowing users to immediately see the content they navigated to without needing to manually close the menu.
+
 /* ── PARTICLE BG CANVAS ── */
 (()=>{
   const c = document.getElementById('bgc'),ctx=c.getContext('2d');
@@ -146,6 +166,52 @@ let mouseX=0,
     });
     requestAnimationFrame(trailFr);
   })();
+
+/* ── LOADER ── */
+const lpct = document.getElementById('lpct'),ltxt=document.getElementById('ltxt'); // Loader percentage and text elements
+const lmsgs = ['Initializing Neural Interface...',
+               'Booting AI Subsystems...',
+               'Calibrating Visual Matrix...',
+               'Establishing Secure Channel...',
+               'All Systems Nominal.']; // Loader messages to cycle through at intervals
+
+let pct=0, lmi=0; // pct = percentage, lmi = loader message index
+
+const ldrInt = setInterval(()=>{ // Loader interval function runs every 70ms to update percentage and message
+
+  pct =  Math.min(pct+Math.random()*14,100); // Increment percentage by random amount up to 14, capping at 100
+  lpct.textContent = Math.floor(pct);
+  if(Math.floor(pct)%(20) === 0 && lmi < lmsgs.length-1){ // Every 20% increment, update loader message if there are more messages to show
+    lmi++;
+    ltxt.textContent = lmsgs[lmi];
+  }
+  if(pct >= 100){ // Once percentage reaches 100%, clear the interval to stop updates and trigger loader exit animation
+    clearInterval(ldrInt);
+    setTimeout(()=> 
+      document.getElementById('loader').classList.add('out'),400)
+  }
+
+},70);
+
+/* ── ELECTRIC SPARKS ON CLICK ── */
+document.addEventListener('click', e=>{ 
+  for(let i=0; i<8; i++){ // Generate 8 sparks per click for a more dynamic effect
+
+    const sp = document.createElement('div'); // Create a new div element to represent the spark
+    sp.className='spark'; // Assign the 'spark' class for styling
+    const ang = Math.random()*Math.PI*2,dist = 30+Math.random()*50; // 360° random direction and distance for spark trajectory
+    sp.style.cssText=`left:${e.clientX-2}px; 
+                      top:${e.clientY-2}px;
+                      --dx:${Math.cos(ang)*dist}px; 
+                      --dy:${Math.sin(ang)*dist}px;
+                      background:${Math.random()>.5 ?'#00f0ff':'#a855f7'};
+                      box-shadow:0 0 8px ${Math.random()>.5?'#00f0ff':'#a855f7'}`;
+
+    document.body.appendChild(sp); // Add the spark element to the body of the document
+
+    setTimeout(()=>sp.remove(),600); // Remove the spark element after 600 milliseconds to clean up the DOM
+  }
+});
 
 /* ── SCROLL REVEAL ── */
 const ro = new IntersectionObserver(es=>{
