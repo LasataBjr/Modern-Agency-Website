@@ -34,6 +34,77 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ── PARTICLE BG CANVAS ── */
+(()=>{
+  const c = document.getElementById('bgc'),ctx=c.getContext('2d');
+  let W,H,pts=[];
+
+  const rsz=()=>{
+    W = c.width=window.innerWidth;
+    H = c.height=window.innerHeight
+  };
+  rsz();
+  window.addEventListener('resize',rsz);
+  class P{
+
+    constructor(){
+      this.reset();
+    }
+
+    reset(){
+      this.x = Math.random()*W;
+      this.y = Math.random()*H;
+      this.vx = (Math.random()-.5)*.35;
+      this.vy=(Math.random()-.5)*.35;
+      this.r=Math.random()*1.5+.3;
+      this.a=Math.random()*.5+.15;
+      this.col=Math.random()>.5?'0,240,255':'168,85,247';
+    }
+
+    tick(){
+      this.x+=this.vx;
+      this.y+=this.vy;
+      if(this.x<0||this.x>W||this.y<0||this.y>H)
+        this.reset();
+    }
+
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${this.col},${this.a})`;
+      ctx.fill();
+    }
+  }
+  for(let i=0;i<140;i++)pts.push(new P());
+  const D=110;
+  (function fr(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.tick();p.draw()});
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);
+      if(d<D){
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y);
+        ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(0,240,255,${(1-d/D)*.12})`;
+        ctx.lineWidth=.5;ctx.stroke();
+      }
+    }
+    requestAnimationFrame(fr);
+  })();
+})();
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){
+      e.preventDefault();
+      t.scrollIntoView({behavior:'smooth'})
+    }
+  })
+});
+
 /* ── CURSOR TRAIL ── */
 let mouseX=0,
     mouseY=0,
@@ -75,6 +146,21 @@ let mouseX=0,
     });
     requestAnimationFrame(trailFr);
   })();
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      ro.unobserve(e.target)
+    }
+  })
+},{threshold:.08});
+
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>
+  ro.observe(el)
+);
+
 
 /* ──  Typewriter Animation Effect for Hero section ── */
 const words = [
