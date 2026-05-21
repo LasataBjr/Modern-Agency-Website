@@ -10,11 +10,10 @@
     </head>
 
     <body>
-        <!-- Falling orb BACKGROUND EFFECTS -->
+        <!-- Falling orb BACKGROUND EFFECTS / Cascading effect -->
 
         <canvas id="bgc"></canvas> <!-- Layer 1: The Ambient Grid/Space -->
-        <canvas id="matrix-canvas"></canvas> <!-- Layer 2: The Digital Rain Matrix-->
-        <!-- Layer 3: The Organic Light Sources  -->
+        <!-- Layer 2: The Organic Light Sources  -->
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
         <div class="orb orb3"></div>
@@ -259,6 +258,161 @@
         </section>
 
         
+        <!-- PROJECTS — 3D FLIP CARDS -->
+        <section id="projects">
+            <div class="reveal" style="margin-bottom:3.5rem">
+                <span class="stag">Featured Deployments</span>
+                <h2 class="sh">Selected <span class="hl">work</span></h2>
+                <p class="ss">Hover to flip and see project details.</p>
+            </div>
+            <div class="pgrid">
+                <!-- Project 1 -->
+                <div class="pf-wrap reveal" data-d="1">
+                    <div class="pf-card">
+                        <div class="pf-face pf-front">
+                            <span class="flip-hint">FLIP</span>
+                            <div class="pthumb">
+                                <div class="pscan"></div>
+                                <!-- cyberpunk fintech icon -->
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="20" width="48" height="30" rx="2" stroke="#00f0ff" stroke-width="1.5" fill="none"/>
+                                <path d="M8 28h48" stroke="#00f0ff" stroke-width="1"/>
+                                <rect x="12" y="32" width="8" height="5" rx="1" fill="rgba(0,240,255,0.2)" stroke="#00f0ff" stroke-width="0.8"/>
+                                <rect x="24" y="32" width="8" height="5" rx="1" fill="rgba(0,240,255,0.2)" stroke="#00f0ff" stroke-width="0.8"/>
+                                <rect x="36" y="32" width="8" height="5" rx="1" fill="rgba(168,85,247,0.3)" stroke="#a855f7" stroke-width="0.8"/>
+                                <path d="M14 40h10M26 40h6M34 40h12" stroke="#00f0ff" stroke-width="0.8" stroke-linecap="round"/>
+                                <path d="M20 14l4-4 4 4 4-4 4 4" stroke="#00f0ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="20" cy="14" r="1.5" fill="#00f0ff"/>
+                                <circle cx="32" cy="14" r="1.5" fill="#a855f7"/>
+                                <circle cx="44" cy="14" r="1.5" fill="#00ff88"/>
+                                <path d="M8 20v-2a2 2 0 012-2h2" stroke="#00f0ff" stroke-width="1"/>
+                                <path d="M56 20v-2a2 2 0 00-2-2h-2" stroke="#a855f7" stroke-width="1"/>
+                                <rect x="28" y="44" width="8" height="4" rx="1" fill="rgba(0,240,255,0.15)" stroke="#00f0ff" stroke-width="0.8"/>
+                                </svg>
+                                <span class="ptag2">FINTECH · AI</span>
+                            </div>
+                            <div class="pinfo">
+                                <div class="ptitle">ARCIS FINANCE</div>
+                                <p class="pdesc">Real-time AI-powered portfolio management platform serving 120k+ investors.</p>
+                                <div class="ptechrow"><span class="ptech">React</span><span class="ptech">TensorFlow</span><span class="ptech">D3.js</span></div>
+                            </div>
+                        </div>
+                        <div class="pf-face pf-back">
+                            <div class="pb-corner tl"></div><div class="pb-corner br"></div>
+                            <svg class="pb-svg-icon" width="52" height="52" viewBox="0 0 64 64" fill="none">
+                                <rect x="8" y="20" width="48" height="30" rx="2" stroke="#00f0ff" stroke-width="1.5" fill="none" opacity="0.9"/>
+                                <path d="M8 28h48" stroke="#00f0ff" stroke-width="1"/>
+                                <rect x="12" y="32" width="8" height="5" rx="1" fill="rgba(0,240,255,0.25)" stroke="#00f0ff" stroke-width="0.8"/>
+                                <rect x="24" y="32" width="8" height="5" rx="1" fill="rgba(0,240,255,0.25)" stroke="#00f0ff" stroke-width="0.8"/>
+                                <rect x="36" y="32" width="8" height="5" rx="1" fill="rgba(168,85,247,0.4)" stroke="#a855f7" stroke-width="0.8"/>
+                                <path d="M20 14l4-4 4 4 4-4 4 4" stroke="#00f0ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="pb-title">ARCIS FINANCE</div>
+                            <div class="pb-stat">Users: <span>120,000+</span></div>
+                            <div class="pb-stat">Activation lift: <span>+47%</span></div>
+                            <div class="pb-stat">Latency: <span>&lt;80ms</span></div>
+                            <div class="pb-stat">Duration: <span>14 weeks</span></div>
+                            <span class="pb-cta">View Case Study →</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="pf-wrap reveal" data-d="2">
+                    <div class="pf-card">
+                        <div class="pf-face pf-front">
+                            <span class="flip-hint">FLIP</span>
+                            <div class="pthumb">
+                                <div class="pscan"></div>
+                                <!-- cyberpunk security icon -->
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M32 6L10 16v14c0 12.4 9.3 24 22 27 12.7-3 22-14.6 22-27V16L32 6z" stroke="#a855f7" stroke-width="1.5" fill="rgba(168,85,247,0.05)"/>
+                                <path d="M32 6L10 16v14c0 12.4 9.3 24 22 27" stroke="rgba(0,240,255,0.4)" stroke-width="0.8" stroke-dasharray="3 2"/>
+                                <circle cx="32" cy="28" r="8" stroke="#a855f7" stroke-width="1.2" fill="rgba(168,85,247,0.1)"/>
+                                <circle cx="32" cy="28" r="3" fill="#a855f7" opacity="0.8"/>
+                                <path d="M32 20v-4M32 40v4M20 28h-4M48 28h-4" stroke="#a855f7" stroke-width="1" stroke-linecap="round"/>
+                                <path d="M26 22l-3-3M41 41l-3-3M38 22l3-3M23 41l3-3" stroke="rgba(168,85,247,0.5)" stroke-width="0.8"/>
+                                <rect x="28" y="34" width="8" height="10" rx="1" stroke="#00f0ff" stroke-width="0.8" fill="rgba(0,240,255,0.06)"/>
+                                <path d="M30 37v-2a2 2 0 014 0v2" stroke="#00f0ff" stroke-width="0.8"/>
+                                <circle cx="32" cy="39" r="1" fill="#00f0ff"/>
+                                </svg>
+                                <span class="ptag2">SECURITY · ML</span>
+                            </div>
+                            <div class="pinfo">
+                                <div class="ptitle">SENTINEL MESH</div>
+                                <p class="pdesc">Autonomous threat detection system processing 2M+ events/hour.</p>
+                                <div class="ptechrow"><span class="ptech">Python</span><span class="ptech">PyTorch</span><span class="ptech">Kafka</span></div>
+                            </div>
+                        </div>
+                        <div class="pf-face pf-back">
+                            <div class="pb-corner tl"></div><div class="pb-corner br"></div>
+                            <svg class="pb-svg-icon" width="52" height="52" viewBox="0 0 64 64" fill="none">
+                                <path d="M32 6L10 16v14c0 12.4 9.3 24 22 27 12.7-3 22-14.6 22-27V16L32 6z" stroke="#a855f7" stroke-width="1.5" fill="rgba(168,85,247,0.08)" opacity="0.9"/>
+                                <circle cx="32" cy="28" r="8" stroke="#a855f7" stroke-width="1.2" fill="rgba(168,85,247,0.12)"/>
+                                <circle cx="32" cy="28" r="3" fill="#a855f7" opacity="0.8"/>
+                            </svg>
+                            <div class="pb-title">SENTINEL MESH</div>
+                            <div class="pb-stat">Events/hour: <span>2M+</span></div>
+                            <div class="pb-stat">Accuracy: <span>99.97%</span></div>
+                            <div class="pb-stat">Response: <span>&lt;1ms</span></div>
+                            <div class="pb-stat">Duration: <span>20 weeks</span></div>
+                            <span class="pb-cta">View Case Study →</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="pf-wrap reveal" data-d="3">
+                    <div class="pf-card">
+                        <div class="pf-face pf-front">
+                            <span class="flip-hint">FLIP</span>
+                            <div class="pthumb">
+                                <div class="pscan"></div>
+                                <!-- cyberpunk health/DNA icon -->
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 8c0 8 16 8 16 16s-16 8-16 16 16 8 16 16" stroke="#00ff88" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <path d="M40 8c0 8-16 8-16 16s16 8 16 16-16 8-16 16" stroke="rgba(0,240,255,0.5)" stroke-width="1" stroke-linecap="round" fill="none" stroke-dasharray="3 2"/>
+                                <line x1="18" y1="16" x2="46" y2="16" stroke="#00ff88" stroke-width="0.8" opacity="0.4"/>
+                                <line x1="18" y1="24" x2="46" y2="24" stroke="#00ff88" stroke-width="0.8" opacity="0.4"/>
+                                <line x1="18" y1="32" x2="46" y2="32" stroke="#00ff88" stroke-width="0.8" opacity="0.4"/>
+                                <line x1="18" y1="40" x2="46" y2="40" stroke="#00ff88" stroke-width="0.8" opacity="0.4"/>
+                                <line x1="18" y1="48" x2="46" y2="48" stroke="#00ff88" stroke-width="0.8" opacity="0.4"/>
+                                <circle cx="24" cy="16" r="2.5" fill="#00ff88"/>
+                                <circle cx="40" cy="24" r="2.5" fill="#00f0ff"/>
+                                <circle cx="24" cy="32" r="2.5" fill="#00ff88"/>
+                                <circle cx="40" cy="40" r="2.5" fill="#00f0ff"/>
+                                <circle cx="24" cy="48" r="2.5" fill="#00ff88"/>
+                                <rect x="6" y="28" width="10" height="8" rx="1" stroke="#00ff88" stroke-width="0.8" fill="rgba(0,255,136,0.06)"/>
+                                <path d="M8 31h2v2h2v2h2" stroke="#00ff88" stroke-width="0.8" stroke-linecap="round"/>
+                                <rect x="48" y="28" width="10" height="8" rx="1" stroke="#00f0ff" stroke-width="0.8" fill="rgba(0,240,255,0.06)"/>
+                                <path d="M50 34l2-4 2 4" stroke="#00f0ff" stroke-width="0.8"/>
+                                </svg>
+                                <span class="ptag2">HEALTHTECH · LLM</span>
+                            </div>
+                            <div class="pinfo">
+                                <div class="ptitle">HELIO HEALTH</div>
+                                <p class="pdesc">HIPAA-compliant telemedicine platform with AI-assisted diagnostics.</p>
+                                <div class="ptechrow"><span class="ptech">React Native</span><span class="ptech">GPT-4</span><span class="ptech">AWS</span></div>
+                            </div>
+                        </div>
+                        <div class="pf-face pf-back">
+                            <div class="pb-corner tl"></div><div class="pb-corner br"></div>
+                            <svg class="pb-svg-icon" width="52" height="52" viewBox="0 0 64 64" fill="none">
+                                <path d="M24 8c0 8 16 8 16 16s-16 8-16 16 16 8 16 16" stroke="#00ff88" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.9"/>
+                                <circle cx="24" cy="16" r="2.5" fill="#00ff88"/>
+                                <circle cx="40" cy="24" r="2.5" fill="#00f0ff"/>
+                                <circle cx="24" cy="32" r="2.5" fill="#00ff88"/>
+                                <circle cx="40" cy="40" r="2.5" fill="#00f0ff"/>
+                            </svg>
+                            <div class="pb-title">HELIO HEALTH</div>
+                            <div class="pb-stat">Patients: <span>8,000+</span></div>
+                            <div class="pb-stat">Diagnosis accuracy: <span>+34%</span></div>
+                            <div class="pb-stat">Uptime: <span>99.99%</span></div>
+                            <div class="pb-stat">Duration: <span>16 weeks</span></div>
+                            <span class="pb-cta">View Case Study →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <!-- TESTIMONIALS -->
         <section id="testimonials">
