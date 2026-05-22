@@ -1255,6 +1255,16 @@ section{
     overflow:hidden;
 }
 
+.t-header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin-bottom:3rem;
+    flex-wrap:wrap;
+    gap:1.5rem;
+    width:100%;
+}
+
 /* Arrow buttons */
 .sbtns{
     display:flex;
