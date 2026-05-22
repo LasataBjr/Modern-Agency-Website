@@ -1251,30 +1251,136 @@ section{
 /* ══ TESTIMONIALS ══ */
 #testimonials{
     background:var(--bg2);
+    padding:7rem 5%;
+    overflow:hidden;
 }
 
-.tslider{
+/* Arrow buttons */
+.sbtns{
+    display:flex;
+    gap:0.7rem;
+    align-items:center;
+}
+
+.sbtn{
+  width:44px;
+  height:44px;
+  background:rgba(0,240,255,0.04);
+  border:1px solid var(--border2);
+  color:var(--cyan);cursor:pointer;
+  display:flex;align-items:center;
+  justify-content:center;
+  clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
+  font-size:1rem;
+}
+
+.sbtn::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:var(--cyan);
+    opacity:0;
+    transition:opacity 0.25s;
+}
+
+.sbtn:hover{
+    border-color:var(--cyan);
+    box-shadow:0 0 18px rgba(0,240,255,0.25);
+}
+
+.sbtn:hover::before{
+    opacity:0.1;
+}
+
+.sbtn .arr{
+    display:inline-block;
+    transition:transform 0.25s,opacity 0.2s;
+    position:relative;
+    z-index:1;
+}
+
+#snext:hover .arr{
+    animation:shootR 0.38s ease forwards;
+}
+
+#sprev:hover .arr{
+    animation:shootL 0.38s ease forwards;
+}
+
+@keyframes shootR{
+    0%{
+        transform:translateX(0);
+        opacity:1;
+    }
+    45%{
+        transform:translateX(12px);
+        opacity:0;
+    }
+    46%{
+        transform:translateX(-12px);
+        opacity:0;
+    }
+    100%{
+        transform:translateX(0);
+        opacity:1;
+    }
+}
+@keyframes shootL{
+    0%{
+        transform:translateX(0);
+        opacity:1;
+    }
+    45%{
+        transform:translateX(-12px);
+        opacity:0;
+    }
+    46%{
+        transform:translateX(12px);
+        opacity:0;
+    }
+    100%{
+        transform:translateX(0);
+        opacity:1;
+    }
+}
+
+/* Slider window — hard clips overflow */
+.tslider-window{
     overflow:hidden;
+    width:100%;
 }
 
 .ttrack{
-    display:flex;
-    gap:1.5rem;
-    transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  display:flex;
+  gap:1.5rem;
+  transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  will-change:transform;
 }
-
+ 
+/* SQUARE cards — flex basis drives responsive width */
 .tcard{
-    min-width:calc(50% - 0.75rem);
-    flex-shrink:0;border:1px solid var(--border);
-    padding:2.5rem;
-    position:relative;
-    overflow:hidden;
-    background:var(--bg);
-    transition:border-color 0.3s;
+  /* desktop: 3 visible, 2 gaps of 1.5rem = 3rem total */
+  flex:0 0 calc((100% - 3rem) / 3);
+  aspect-ratio:1/1;
+  border:1px solid var(--border);
+  padding:1.6rem;
+  position:relative;
+  overflow:hidden;
+  background:var(--bg);
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-sizing:border-box;
 }
 
 .tcard:hover{
-    border-color:rgba(0,240,255,0.25);
+    border-color:rgba(0,240,255,0.35);
+    transform:translateY(-4px);
+    box-shadow:0 12px 40px rgba(0,240,255,0.08);
 }
 
 .tcard::before{
@@ -1284,88 +1390,113 @@ section{
     left:0;
     right:0;
     height:1px;
-    background:linear-gradient(90deg,transparent,var(--cyan),transparent)
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);
 }
-/* Hologram glitch on hover */
+
 .tcard::after{
     content:'';
     position:absolute;
     inset:0;
-    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,240,255,0.01) 3px,rgba(0,240,255,0.01) 4px);
+    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,240,255,0.012) 3px,rgba(0,240,255,0.012) 4px);
     opacity:0;
     transition:opacity 0.3s;
     pointer-events:none;
+    z-index:0;
 }
-
 .tcard:hover::after{
     opacity:1;
 }
-
+/* big watermark quote mark */
+.tcard-q{
+    position:absolute;
+    top:0.3rem;
+    right:0.8rem;
+    font-family:var(--fh);
+    font-size:4.5rem;
+    font-weight:900;
+    color:var(--cyan);
+    opacity:0.06;
+    line-height:1;
+    pointer-events:none;
+    z-index:0;
+}
 .tquote{
-    font-size:0.93rem;
+    font-size:0.84rem;
     font-style:italic;
     color:var(--text);
-    line-height:1.85;
-    margin-bottom:1.8rem;
-    padding-top:1rem;
+    line-height:1.75;
+    flex:1;
+    display:-webkit-box;
+    -webkit-line-clamp:6;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    position:relative;
+    z-index:1;
 }
-
 .tauthor{
     display:flex;
     align-items:center;
-    gap:1rem;
+    gap:0.8rem;
+    margin-top:1rem;
+    padding-top:0.9rem;
+    border-top:1px solid var(--border);
+    position:relative;
+    z-index:1;
 }
 
 .tavatar{
-    width:40px;
-    height:40px;
+    width:34px;
+    height:34px;
     flex-shrink:0;
     border:1px solid var(--cyan);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:1rem;
+    font-size:0.85rem;
     clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+    background:rgba(0,240,255,0.05)
 }
 
 .tname{
     font-family:var(--fm);
-    font-size:0.82rem;
-    color:var(--text)
+    font-size:0.76rem;
+    color:var(--text);
+    font-weight:500
 }
 
 .trole{
     font-family:var(--fm);
-    font-size:0.68rem;
+    font-size:0.6rem;
     color:var(--dim);
-    margin-top:2px;
+    margin-top:2px
 }
 
-.sbtns{
+/* Dot indicators */
+.t-dots{
     display:flex;
-    gap:0.8rem;
-    margin-top:2rem;
-}
-
-.sbtn{
-    width:42px;
-    height:42px;
-    background:transparent;
-    border:1px solid var(--border);
-    color:var(--cyan);
-    cursor:pointer;
-    font-size:1rem;
-    display:flex;
-    align-items:center;
+    gap:0.5rem;
+    margin-top:1.5rem;
     justify-content:center;
-    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
-    transition:all 0.3s
+    align-items:center;
 }
 
-.sbtn:hover{
-    background:rgba(0,240,255,0.1);
-    box-shadow:var(--gc);
-    border-color:var(--cyan)
+.t-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--border2);
+    cursor:pointer;
+    transition:all 0.35s ease;
+    border:none;
+    padding:0;
+    flex-shrink:0;
+}
+
+.t-dot.active{
+    background:var(--cyan);
+    box-shadow:0 0 8px rgba(0,240,255,0.7);
+    width:22px;
+    border-radius:3px;
 }
 
 /* ══ FAQ ══ */
@@ -1564,7 +1695,12 @@ footer{
     }
 
     .tcard{
-        min-width:100%;
+        flex:0 0 calc((100% - 1.5rem) / 2);
+        aspect-ratio:1/1;
+    }
+
+    .tquote{
+        -webkit-line-clamp:5;
     }
 
     nav .nav-pill,.deploy-wrap{
@@ -1574,6 +1710,7 @@ footer{
     .hamburger{
         display:flex; /* show hamburger on mobile */
     }
+
 }
 
 @media(max-width:600px){
@@ -1598,5 +1735,27 @@ footer{
 
     .flip-grid,.pgrid{
         grid-template-columns:1fr;
+    }
+
+    #testimonials{
+        padding:5rem 5%;
+    }
+
+    .tcard{
+        flex:0 0 100%;
+        aspect-ratio:unset;
+        min-height:200px;
+        padding:1.4rem;
+    }
+
+    .t-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:1rem;
+    }
+
+    .tquote{
+        -webkit-line-clamp:4;
+        font-size:0.82rem;
     }
 }
