@@ -312,101 +312,91 @@ const cobs = new IntersectionObserver(es=>{
 
 document.querySelectorAll('.ctr').forEach(c=>cobs.observe(c));
 
-/* ── TESTIMONIAL SLIDER ── */
-document.addEventListener('DOMContentLoaded', () => {
-  const sliderContainer = document.querySelector('.tslider'); // The window wrapper
+/* ── TESTIMONIAL SLIDER — responsive, auto-scroll, dots ── */
+(()=>{
   const track = document.getElementById('ttrack');
+  const dotsWrap = document.getElementById('tdots');
   const btnNext = document.getElementById('snext');
   const btnPrev = document.getElementById('sprev');
-  
-  let currentIndex = 0;
-  let autoScrollTimer = null;
-
-  // 1. Dynamic Width Calculator Matrix
-  function getSlideShift() {
-    if (!track || track.children.length === 0) return 0;
-    const cardWidth = track.children[0].getBoundingClientRect().width;
-    const gapWidth = 24; // 1.5rem gap match
-    return cardWidth + gapWidth;
+  const window2 = document.querySelector('.tslider-window');
+ 
+  const TOTAL = track.children.length;
+  let idx = 0;
+  let autoTimer = null;
+ 
+  /* How many cards are visible at current viewport */
+  function visibleCount(){
+    const vw = window.innerWidth;
+    if(vw <= 560) return 1;
+    if(vw <= 900) return 2;
+    return 3;
   }
-
-  function updateSliderPosition() {
-    const shiftAmount = getSlideShift();
-    track.style.transform = `translateX(-${currentIndex * shiftAmount}px)`;
+ 
+  /* Width of one card + one gap */
+  function cardShift(){
+    const card = track.children[0];
+    const gap = 24; // 1.5rem
+    return card.getBoundingClientRect().width + gap;
   }
-
-  function getMaxIndex() {
-    const totalCards = track.children.length;
-    if (totalCards === 0) return 0;
-    const visibleCards = Math.round(track.parentElement.getBoundingClientRect().width / getSlideShift());
-    const maxIdx = totalCards - visibleCards;
-    return maxIdx > 0 ? maxIdx : 0;
+ 
+  function maxIndex(){
+    return Math.max(0, TOTAL - visibleCount());
   }
-
-  function slideNext() {
-    const maxIndex = getMaxIndex();
-    if (currentIndex >= maxIndex) {
-      currentIndex = 0; // Cycles loop straight back to the start index
-    } else {
-      currentIndex++;
+ 
+  function goTo(newIdx, smooth=true){
+    idx = Math.max(0, Math.min(newIdx, maxIndex()));
+    track.style.transition = smooth
+      ? 'transform 0.55s cubic-bezier(0.4,0,0.2,1)'
+      : 'none';
+    track.style.transform = `translateX(-${idx * cardShift()}px)`;
+    updateDots();
+  }
+ 
+  /* Build dots — one per "page" */
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    const pages = maxIndex() + 1;
+    for(let i=0; i<pages; i++){
+      const d = document.createElement('button');
+      d.className = 't-dot' + (i===idx?' active':'');
+      d.addEventListener('click', ()=>{ stopAuto(); goTo(i); startAuto(); });
+      dotsWrap.appendChild(d);
     }
-    updateSliderPosition();
   }
-
-  function slidePrev() {
-    if (currentIndex <= 0) {
-      currentIndex = getMaxIndex();
-    } else {
-      currentIndex--;
-    }
-    updateSliderPosition();
-  }
-
-  // 2. High-Performance Timer System
-  function startAutoScroll() {
-    stopAutoScroll(); 
-    autoScrollTimer = setInterval(slideNext, 4000); // 4-second intervals
-  }
-
-  function stopAutoScroll() {
-    if (autoScrollTimer) clearInterval(autoScrollTimer);
-  }
-
-  // 3. Arrow Interaction Controls
-  btnNext.addEventListener('click', () => {
-    stopAutoScroll();
-    slideNext();
-    startAutoScroll();
-  });
-
-  btnPrev.addEventListener('click', () => {
-    stopAutoScroll();
-    slidePrev();
-    startAutoScroll();
-  });
-
-  // 4. THE INTERACTIVE HOVER TRACKING PAUSE ENGINE
-  if (sliderContainer) {
-    // Halts the scroll logic instantly when mouse cursor enters the tracking space
-    sliderContainer.addEventListener('mouseenter', () => {
-      stopAutoScroll();
-    });
-
-    // Re-initializes clean automated countdown ticker loops when mouse moves out
-    sliderContainer.addEventListener('mouseleave', () => {
-      startAutoScroll();
+ 
+  function updateDots(){
+    dotsWrap.querySelectorAll('.t-dot').forEach((d,i)=>{
+      d.classList.toggle('active', i===idx);
     });
   }
-
-  window.addEventListener('resize', () => {
-    const maxIndex = getMaxIndex();
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-    updateSliderPosition();
+ 
+  function next(){ goTo(idx >= maxIndex() ? 0 : idx+1); }
+  function prev(){ goTo(idx <= 0 ? maxIndex() : idx-1); }
+ 
+  function startAuto(){ stopAuto(); autoTimer=setInterval(next, 4000); }
+  function stopAuto(){ clearInterval(autoTimer); }
+ 
+  btnNext.addEventListener('click',()=>{ stopAuto(); next(); startAuto(); });
+  btnPrev.addEventListener('click',()=>{ stopAuto(); prev(); startAuto(); });
+ 
+  /* Pause on hover */
+  window2.addEventListener('mouseenter', stopAuto);
+  window2.addEventListener('mouseleave', startAuto);
+ 
+  /* Rebuild on resize */
+  let resizeT;
+  window.addEventListener('resize',()=>{
+    clearTimeout(resizeT);
+    resizeT = setTimeout(()=>{
+      goTo(Math.min(idx, maxIndex()), false);
+      buildDots();
+    }, 150);
   });
-
-  // Initialize System loops on page completion
-  startAutoScroll();
-});
+ 
+  /* Init */
+  buildDots();
+  startAuto();
+})();
 
 
 
